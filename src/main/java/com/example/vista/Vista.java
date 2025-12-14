@@ -7,7 +7,6 @@ import com.example.modelo.Bosque;
 import com.example.modelo.Dragon;
 import com.example.modelo.Mago;
 import com.example.modelo.Monstruo;
-import com.example.modelo.Hechizo;
 import com.example.modelo.TipoMonstruo;
 
 /**
@@ -29,8 +28,8 @@ public class Vista {
         System.out.println("4. Mostrar Jefe del Bosque");
         System.out.println("5. Cambiar Jefe del Bosque");
         System.out.println("6. Combate");
-        System.out.println("7. Crear Dragón");
-        System.out.println("8. Crear Hechizo");
+        System.out.println("7. Añadir hechizo al mago");
+        System.out.println("8. Crear Dragón");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opcion: ");
     }
@@ -97,6 +96,16 @@ public class Vista {
         Monstruo jefeSeleccionado = seleccionarMonstruo(monstruosDisponibles);
         return new Bosque(nombre, nivelPeligro, jefeSeleccionado);
     }
+
+    public Dragon datosDragon() {
+        System.out.print("Ingrese el nombre del dragón: ");
+        String nombre = leerLinea();
+        System.out.print("Ingrese la intensidad de fuego del dragón: ");
+        Integer intensidadFuego = leerEntero();
+        System.out.print("Ingrese la resistencia del dragón: ");
+        Integer resistencia = leerEntero();
+        return new Dragon(nombre, intensidadFuego, resistencia);
+    }
     public Monstruo seleccionarMonstruo(List<Monstruo> monstruosDisponibles) {
     System.out.println("Selección de monstruo:");
         Monstruo monstruoSeleccionado = null;
@@ -154,6 +163,9 @@ public class Vista {
     public void mostrarNoHayMagos() {
         System.out.println("No hay magos disponibles. Cree uno nuevo.");
     }
+    public void mostrarNoHayDragon() {
+        System.out.println("El dragón no ha sido convocado con éxito. Cree uno nuevo.");
+    }
 
     public void magoAtaca(String nombreMago, String nombreMonstruo, int dano) {
         System.out.println("El mago " + nombreMago + " ataca al monstruo " + nombreMonstruo + " causando " + dano + " puntos de daño.");
@@ -169,31 +181,5 @@ public class Vista {
 
     public void mostrarGanadorMonstruo(String nombreMonstruo) {
         System.out.println("El monstruo " + nombreMonstruo + " ha ganado el combate.");
-    }
-
-    public Dragon datosDragon() {
-        System.out.print("Ingrese el nombre del dragón: ");
-        String nombre = leerLinea();
-        System.out.print("Ingrese la intensidad de fuego: ");
-        int intensidadFuego = leerEntero();
-        System.out.print("Ingrese la resistencia: ");
-        int resistencia = leerEntero();
-        return new Dragon(nombre, intensidadFuego, resistencia);
-    }
-
-    public Hechizo datosHechizo() {
-        System.out.print("Ingrese el nombre del hechizo: ");
-        String nombre = leerLinea();
-        System.out.print("Ingrese el efecto del hechizo: ");
-        int efecto = leerEntero();
-        return new Hechizo(nombre, efecto);
-    }
-
-    public void mostrarHechizoLanzado(String nombreMago, String nombreMonstruo) {
-        System.out.println(nombreMago + " ha lanzado un hechizo sobre " + nombreMonstruo);
-    }
-
-    public void mostrarExhalacion(String nombreDragon, String nombreMonstruo) {
-        System.out.println(nombreDragon + " ha exhalado fuego sobre " + nombreMonstruo);
     }
 }

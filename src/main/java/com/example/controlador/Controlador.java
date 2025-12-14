@@ -4,6 +4,8 @@ import com.example.vista.Vista;
 import com.example.modelo.Mago;
 import com.example.modelo.Monstruo;
 import com.example.modelo.Bosque;
+import com.example.modelo.Dragon;
+import com.example.modelo.Hechizo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,11 @@ public class Controlador {
     private GestorMonstruo gestorMonstruo;
     private List<Monstruo> monstruosDisponibles;
     private List<Mago> magosDisponibles;
+    private List<Hechizo> hechizosDisponibles;
     Bosque bosque = null;
     Mago mago = null;
     Monstruo monstruo = null;
+    Dragon dragon = null;
 
     /**
      * Constructor - Inicializa la vista y los gestores
@@ -84,24 +88,16 @@ public class Controlador {
                     combate(magosDisponibles, monstruosDisponibles);
                     break;
                 case 7:
-                    Dragon dragon = vista.datosDragon();
-                    bosque.addDragon(dragon);
-                    break;
+                    /*
+                     * if (magosDisponibles.isEmpty()) {
+                     * vista.mostrarNoHayMagos();
+                     * } else {
+                     * Mago magoSeleccionado = vista.seleccionarMago(magosDisponibles);
+                     * Hechizo hechizoNuevo = vista.datosHechizo();
+                     * magoSeleccionado.addHechizo(hechizoNuevo);
+                     */
                 case 8:
-                    Hechizo hechizo = vista.datosHechizo();
-                    mago.addHechizo(hechizo);
-                    break;
-                case 9:
-                    Mago magoSeleccionado = vista.seleccionarMago(magosDisponibles);
-                    Monstruo monstruoSeleccionado = vista.seleccionarMonstruo(monstruosDisponibles);
-                    magoSeleccionado.lanzarHechizo(monstruoSeleccionado);
-                    vista.mostrarHechizoLanzado(magoSeleccionado.getNombre(), monstruoSeleccionado.getNombre());
-                    break;
-                case 10:
-                    Dragon dragonSeleccionado = vista.seleccionarDragon(bosque.getDragones());
-                    Monstruo monstruoAExhalar = vista.seleccionarMonstruo(monstruosDisponibles);
-                    dragonSeleccionado.exhalar(monstruoAExhalar);
-                    vista.mostrarExhalacion(dragonSeleccionado.getNombre(), monstruoAExhalar.getNombre());
+                    dragon = vista.datosDragon();
                     break;
                 case 0:
                     vista.mostrarSaliendoAplicacion();
@@ -123,16 +119,38 @@ public class Controlador {
             return;
         }
         Mago mago = vista.seleccionarMago(magos);
-        Monstruo monstruo = vista.seleccionarMonstruo(monstruos);
-        while (mago.getVida() > 0 && monstruo.getVida() > 0) {
-            monstruo.atacar(mago);
+        ArrayList<Monstruo> monstruosVivos = new ArrayList<Monstruo>();
+        Integer nMonstruos = (int) (Math.random() * monstruos.size()) + 1;
+        for (int i = 0; i < nMonstruos; i++) {
+            Integer indiceAleatorio = (int) (Math.random() * monstruos.size());
+            monstruosVivos.add(monstruos.get(indiceAleatorio));
+        }
+        while (mago.getVida() > 0 && !monstruos.isEmpty()) {
+            vista.opcionesMago();
+            switch (vista.leerEntero()) {
+                case 1:
+                    if (dragon == null) {
+                        vista.mostrarNoHayDragon();
+                    } else {
+                        Monstruo monstruo = vista.seleccionarMonstruo(monstruosVivos);
+                        dragon.exhalar(monstruo);
+                    }
+                    break;
+                case 2:
+                    Monstruo monstruo = vista.seleccionarMonstruo(monstruosVivos);
+                    Hechizo hechizoSeleccionado = vista.seleccionarHechizos(hechizosDisponibles);
+                    mago.lanzarHechizo(monstruo, hechizoSeleccionado);
+                    break;
+                default:
+                    break;
+            }
             vista.monstruoAtaca(monstruo.getNombre(), mago.getNombre(), monstruo.getFuerza());
             if (mago.getVida() > 0) {
                 mago.lanzarHechizo(monstruo);
                 vista.magoAtaca(mago.getNombre(), monstruo.getNombre(), mago.getNivelMagia());
             }
         }
-        if(mago.getVida() > 0) {
+        if (mago.getVida() > 0) {
             vista.mostrarGanadorMago(mago.getNombre());
         } else {
             vista.mostrarGanadorMonstruo(monstruo.getNombre());

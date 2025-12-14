@@ -17,7 +17,6 @@ public class Bosque {
     private Monstruo monstruoJefe;
     /*@OneToMany(targetEntity = Monstruo.class)
     private List<Monstruo> monstruosJefe = new ArrayList<>();*/
-    private List<Dragon> dragones = new ArrayList<>();
 
     public Bosque() {
     }
@@ -58,14 +57,6 @@ public class Bosque {
 
     public void setMonstruoJefe(Monstruo monstruoJefe) {
         this.monstruoJefe = monstruoJefe;
-    }
-
-    public List<Dragon> getDragones() {
-        return dragones;
-    }
-
-    public void addDragon(Dragon dragon) {
-        dragones.add(dragon);
     }
 
     public void mostrarJefe() {
