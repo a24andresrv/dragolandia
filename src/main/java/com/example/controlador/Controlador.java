@@ -6,6 +6,9 @@ import com.example.modelo.Monstruo;
 import com.example.modelo.Bosque;
 import com.example.modelo.Dragon;
 import com.example.modelo.Hechizo;
+import com.example.modelo.Rayo;
+import com.example.modelo.BolaDeFuego;
+import com.example.modelo.BolaNieve;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,12 @@ public class Controlador {
         this.gestorMonstruo = new GestorMonstruo();
         this.monstruosDisponibles = new ArrayList<Monstruo>();
         this.magosDisponibles = new ArrayList<Mago>();
+        this.hechizosDisponibles = new ArrayList<Hechizo>();
+        
+        // Inicializar hechizos disponibles
+        this.hechizosDisponibles.add(new Rayo());
+        this.hechizosDisponibles.add(new BolaDeFuego());
+        this.hechizosDisponibles.add(new BolaNieve());
     }
 
     public void ejecutar() {
@@ -51,16 +60,21 @@ public class Controlador {
             switch (opcion) {
 
                 case 1:
+                    // Crear un nuevo mago y añadirlo a la lista de magos disponibles
                     mago = vista.datosMago();
                     gestorMago.crearMago(mago);
                     magosDisponibles.add(mago);
                     break;
+
                 case 2:
+                    // Crear un nuevo monstruo y añadirlo a la lista de monstruos disponibles
                     monstruo = vista.datosMonstruo();
                     gestorMonstruo.crearMonstruo(monstruo);
                     monstruosDisponibles.add(monstruo);
                     break;
+
                 case 3:
+                    // Crear un bosque con los monstruos disponibles
                     if (monstruosDisponibles.isEmpty()) {
                         vista.mostrarNoHayMonstruos();
                         Monstruo monstruo = vista.datosMonstruo();
@@ -70,7 +84,9 @@ public class Controlador {
                     bosque = vista.datosBosque(monstruosDisponibles);
                     gestorBosque.crearBosque(bosque);
                     break;
+
                 case 4:
+                    // Mostrar el jefe del bosque si existe
                     if (monstruosDisponibles.isEmpty()) {
                         vista.mostrarNoHayMonstruos();
                     } else if (bosque == null) {
@@ -78,16 +94,21 @@ public class Controlador {
                     } else {
                         bosque.mostrarJefe();
                     }
-
                     break;
+
                 case 5:
+                    // Cambiar el jefe del bosque seleccionando un nuevo monstruo
                     Monstruo nuevoJefe = vista.seleccionarMonstruo(monstruosDisponibles);
                     bosque.cambiarJefe(nuevoJefe);
                     break;
+
                 case 6:
+                    // Iniciar un combate entre magos y monstruos
                     combate(magosDisponibles, monstruosDisponibles);
                     break;
+
                 case 7:
+                    // (Comentado) Añadir un nuevo hechizo a un mago seleccionado
                     /*
                      * if (magosDisponibles.isEmpty()) {
                      * vista.mostrarNoHayMagos();
@@ -96,13 +117,31 @@ public class Controlador {
                      * Hechizo hechizoNuevo = vista.datosHechizo();
                      * magoSeleccionado.addHechizo(hechizoNuevo);
                      */
+                    break;
+
                 case 8:
+                    // Crear un nuevo dragón
                     dragon = vista.datosDragon();
                     break;
+
+                case 9:
+                    // Aprender un hechizo
+                    if (magosDisponibles.isEmpty()) {
+                        vista.mostrarNoHayMagos();
+                    } else {
+                        Mago magoSeleccionado = vista.seleccionarMago(magosDisponibles);
+                        Hechizo hechizoAprendido = vista.mostrarHechizosAprender(hechizosDisponibles);
+                        magoSeleccionado.addHechizo(hechizoAprendido);
+                    }
+                    break;
+
                 case 0:
+                    // Salir de la aplicación
                     vista.mostrarSaliendoAplicacion();
                     break;
+
                 default:
+                    // Mostrar mensaje de opción no válida
                     vista.mostrarOpcionNoValida();
             }
         } while (opcion != 0);
@@ -125,7 +164,7 @@ public class Controlador {
             Integer indiceAleatorio = (int) (Math.random() * monstruos.size());
             monstruosVivos.add(monstruos.get(indiceAleatorio));
         }
-        while (mago.getVida() > 0 && !monstruos.isEmpty()) {
+        while (mago.getVida() > 0 && !monstruosVivos.isEmpty()) {
             vista.opcionesMago();
             switch (vista.leerEntero()) {
                 case 1:
@@ -139,15 +178,17 @@ public class Controlador {
                 case 2:
                     Monstruo monstruo = vista.seleccionarMonstruo(monstruosVivos);
                     Hechizo hechizoSeleccionado = vista.seleccionarHechizos(hechizosDisponibles);
-                    mago.lanzarHechizo(monstruo, hechizoSeleccionado);
+                    //mago.lanzarHechizo(monstruo, hechizoSeleccionado);
+                    vista.magoAtaca(mago.getNombre(), monstruo.getNombre(), mago.getNivelMagia());
                     break;
                 default:
                     break;
             }
-            vista.monstruoAtaca(monstruo.getNombre(), mago.getNombre(), monstruo.getFuerza());
+            
             if (mago.getVida() > 0) {
                 mago.lanzarHechizo(monstruo);
-                vista.magoAtaca(mago.getNombre(), monstruo.getNombre(), mago.getNivelMagia());
+                
+                vista.monstruoAtaca(monstruo.getNombre(), mago.getNombre(), monstruo.getFuerza());
             }
         }
         if (mago.getVida() > 0) {

@@ -2,45 +2,40 @@ package com.example.modelo;
 
 import java.util.List;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 /**
  * Clase BolaNieve - Hechizo que congela al oponente
  * Deja al monstruo congelado, reduciendo su vida a 0
  */
-public class BolaNieve extends Hechizo {
-    
+@Entity
+@Table(name = "BolaNieve")
+public class BolaNieve {
+
     /**
      * Constructor de BolaNieve
-     * El efecto es irrelevante ya que siempre deja la vida en 0
+     * El daño es irrelevante ya que siempre deja la vida en 0
      */
-    public BolaNieve() {
-        super("Bola de Nieve", 0); // El efecto no importa, siempre congela
-    }
-    
+    private static int danho = 30; // Daño específico para Bola de Fuego
+
     /**
      * Aplica el efecto según el tipo de objetivo recibido
      * Congela al monstruo dejándolo sin vida
-     * @param objetivo Puede ser un Monstruo o una List<Monstruo> (solo afecta al primero)
+     * 
+     * @param objetivo Puede ser un Monstruo o una List<Monstruo> (solo afecta a
+     *                 primero)
      */
-    @Override
     public void aplicarEfecto(Object objetivo) {
-        if (objetivo instanceof Monstruo) {
-            // Congela a un solo monstruo
-            Monstruo monstruo = (Monstruo) objetivo;
-            monstruo.setVida(0);
-            System.out.println("¡" + monstruo.getNombre() + 
-                             " ha sido congelado completamente! Vida: 0");
-        } else if (objetivo instanceof List) {
-            // Solo congela al primer monstruo de la lista
-            @SuppressWarnings("unchecked")
-            List<Monstruo> monstruos = (List<Monstruo>) objetivo;
-            if (!monstruos.isEmpty()) {
-                System.out.println("La Bola de Nieve se dirige al primer objetivo...");
-                aplicarEfecto(monstruos.get(0));
-            } else {
-                System.out.println("La Bola de Nieve no tiene ningún objetivo");
+        try {
+            if (objetivo instanceof Monstruo) {
+                // Congela a un solo monstruo
+                Monstruo monstruo = (Monstruo) objetivo;
+                monstruo.setVida(0);
             }
-        } else {
-            System.out.println("ERROR: Objetivo no válido para Bola de Nieve");
+        } catch (Exception e) {
+            System.out.println("ERROR: Objetivo no válido para Bola de Nieve(" + e.getMessage() + ")");
         }
     }
 }

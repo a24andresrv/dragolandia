@@ -1,6 +1,7 @@
 package com.example.modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -13,7 +14,10 @@ public class Mago {
     private String nombre;
     private Integer vida;
     private Integer nivelMagia;
-    private ArrayList<Hechizo> conjuros;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "mago_id")
+    private List<Hechizo> conjuros = new ArrayList<>();
 
     public Mago() {
     }
@@ -61,11 +65,11 @@ public class Mago {
         }
     }
 
-    public ArrayList<Hechizo> getConjuros() {
+    public List<Hechizo> getConjuros() {
         return conjuros;
     }
 
-    public void setConjuros(ArrayList<Hechizo> conjuros) {
+    public void setConjuros(List<Hechizo> conjuros) {
         this.conjuros = conjuros;
     }
 

@@ -1,9 +1,18 @@
 package com.example.modelo;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Dragon")
 public class Dragon {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer id;
     private String nombre;
     private Integer intensidadFuego;
     private Integer resistencia;
+    @OneToOne
+    private Bosque bosque;
 
     public Dragon() {
     }

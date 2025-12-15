@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.example.modelo.Bosque;
 import com.example.modelo.Dragon;
+import com.example.modelo.Hechizo;
 import com.example.modelo.Mago;
 import com.example.modelo.Monstruo;
 import com.example.modelo.TipoMonstruo;
@@ -30,6 +31,7 @@ public class Vista {
         System.out.println("6. Combate");
         System.out.println("7. Añadir hechizo al mago");
         System.out.println("8. Crear Dragón");
+        System.out.println("9. Aprender hechizo");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opcion: ");
     }
@@ -60,6 +62,7 @@ public class Vista {
         Integer vida = leerEntero();
         System.out.print("Ingrese el nivel de magia del mago: ");
         Integer nivelMagia = leerEntero();
+
         return new Mago(nombre, vida, nivelMagia);
     }
 
@@ -164,7 +167,7 @@ public class Vista {
         System.out.println("No hay magos disponibles. Cree uno nuevo.");
     }
     public void mostrarNoHayDragon() {
-        System.out.println("El dragón no ha sido convocado con éxito. Cree uno nuevo.");
+        System.out.println("El mago no tiene un dragón convocado. El mago pierde su turno.");
     }
 
     public void magoAtaca(String nombreMago, String nombreMonstruo, int dano) {
@@ -181,5 +184,50 @@ public class Vista {
 
     public void mostrarGanadorMonstruo(String nombreMonstruo) {
         System.out.println("El monstruo " + nombreMonstruo + " ha ganado el combate.");
+    }
+
+    public void opcionesMago() {
+        System.out.println("------OPCIONES DEL MAGO------");
+        System.out.println("1. Exhalar fuego (dragón)");
+        System.out.println("2. Lanzar hechizo");
+    }
+    public Hechizo seleccionarHechizos(List<Hechizo> hechizosDisponibles) {
+        System.out.println("Selección de hechizo:");
+        Hechizo hechizoSeleccionado = null;
+        Integer opcion = -1;
+        while (opcion < 1 || opcion > hechizosDisponibles.size()) {
+            for (int i = 0; i < hechizosDisponibles.size(); i++) {
+                System.out.println((i + 1) + ". " + hechizosDisponibles.get(i).getNombre());
+            }
+            System.out.print("Seleccione un número: ");
+            opcion = leerEntero();
+            if (opcion > 0 && opcion <= hechizosDisponibles.size()) {
+                hechizoSeleccionado = hechizosDisponibles.get(opcion - 1);
+                System.out.println("Hechizo seleccionado: " + hechizoSeleccionado.getNombre());
+            } else {
+                System.out.println("Ingrese una opción válida");
+            }
+        }
+        return hechizoSeleccionado;
+    }
+
+    public Hechizo mostrarHechizosAprender(List<Hechizo> hechizosDisponibles) {
+        System.out.println("Selección de hechizo para aprender:");
+        Hechizo hechizoSeleccionado = null;
+        Integer opcion = -1;
+        while (opcion < 1 || opcion > hechizosDisponibles.size()) {
+            for (int i = 0; i < hechizosDisponibles.size(); i++) {
+                System.out.println((i + 1) + ". " + hechizosDisponibles.get(i).getNombre() + " - Daño: " + hechizosDisponibles.get(i).getDanio());
+            }
+            System.out.print("Seleccione un número: ");
+            opcion = leerEntero();
+            if (opcion > 0 && opcion <= hechizosDisponibles.size()) {
+                hechizoSeleccionado = hechizosDisponibles.get(opcion - 1);
+                System.out.println("Hechizo seleccionado: " + hechizoSeleccionado.getNombre());
+            } else {
+                System.out.println("Ingrese una opción válida.");
+            }
+        }
+        return hechizoSeleccionado;
     }
 }

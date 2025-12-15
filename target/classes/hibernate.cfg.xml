@@ -20,6 +20,10 @@
         <mapping class="com.example.modelo.Bosque" />
         <mapping class="com.example.modelo.Monstruo" />
         <mapping class="com.example.modelo.Mago" />
+        <mapping class="com.example.modelo.Hechizo" />
+        <mapping class="com.example.modelo.Rayo" />
+        <mapping class="com.example.modelo.BolaDeFuego" />
+        <mapping class="com.example.modelo.BolaNieve" />
 
     </session-factory>
 </hibernate-configuration>

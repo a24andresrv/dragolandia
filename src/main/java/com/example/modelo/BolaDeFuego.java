@@ -2,47 +2,38 @@ package com.example.modelo;
 
 import java.util.List;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 /**
  * Clase BolaDeFuego - Hechizo que afecta a múltiples monstruos
  * Reduce la vida de todos los monstruos en la lista según el efecto
  */
-public class BolaDeFuego extends Hechizo {
+@Entity
+@Table(name = "BolaDeFuego")
+public class BolaDeFuego{
+
+    private static int danho = 30; // Daño específico para Bola de Fuego
     
-    /**
-     * Constructor de BolaDeFuego
-     * @param efecto Cantidad de vida a reducir de cada monstruo afectado
-     */
-    public BolaDeFuego(int efecto) {
-        super("Bola de Fuego", efecto);
-    }
-    
+
     /**
      * Aplica el efecto según el tipo de objetivo recibido
      * @param objetivo Puede ser un Monstruo o una List<Monstruo>
      */
-    @Override
     public void aplicarEfecto(Object objetivo) {
-        if (objetivo instanceof Monstruo) {
-            // Afecta a un solo monstruo
-            Monstruo monstruo = (Monstruo) objetivo;
-            int vidaActual = monstruo.getVida();
-            monstruo.setVida(vidaActual - this.efecto);
-            System.out.println("¡Bola de Fuego impacta a " + monstruo.getNombre() + 
-                             "! Daño: " + this.efecto + " puntos");
-        } else if (objetivo instanceof List) {
-            // Afecta a múltiples monstruos
-            @SuppressWarnings("unchecked")
-            List<Monstruo> monstruos = (List<Monstruo>) objetivo;
-            if (!monstruos.isEmpty()) {
-                System.out.println("¡Bola de Fuego explota afectando a " + monstruos.size() + " monstruos!");
-                for (Monstruo monstruo : monstruos) {
-                    aplicarEfecto(monstruo);
+        try {
+            if (objetivo instanceof List) {
+                List<Monstruo> monstruos = (List<Monstruo>) objetivo;
+                if (!monstruos.isEmpty()) {
+                    for (Monstruo monstruo : monstruos) {
+                        aplicarEfecto(monstruo);
+                        monstruo.setVida(monstruo.getVida() - danho);
+                    }
                 }
-            } else {
-                System.out.println("La Bola de Fuego no impactó a ningún objetivo");
             }
-        } else {
-            System.out.println("ERROR: Objetivo no válido para Bola de Fuego");
+        } catch (Exception e) {
+            System.out.println("ERROR: Objetivo no válido para Bola de Fuego(" + e.getMessage() + ")");
         }
     }
 }

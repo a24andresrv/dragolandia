@@ -13,10 +13,10 @@ public class Bosque {
     private Integer id;
     private String nombre;
     private Integer nivelPeligro;
-    @Transient  // No se persiste en BD, solo en memoria
+    @OneToOne
     private Monstruo monstruoJefe;
-    /*@OneToMany(targetEntity = Monstruo.class)
-    private List<Monstruo> monstruosJefe = new ArrayList<>();*/
+    @OneToMany(targetEntity = Monstruo.class)
+    private List<Monstruo> monstruos = new ArrayList<>();
 
     public Bosque() {
     }
