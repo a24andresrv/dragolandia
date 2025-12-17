@@ -1,6 +1,7 @@
 package com.example;
 
-import com.example.controlador.Controlador;
+import com.example.controlador.ControladorMenu;
+import com.example.controlador.ControladorCombate;
 
 /**
  * Clase Principal - Punto de entrada de la aplicación Dragolandia
@@ -19,9 +20,12 @@ public class Principal {
      */
     public static void main(String[] args) {
         // Crear instancia del controlador
-        Controlador controlador = new Controlador();
+
         
-        // Ejecutar la aplicación
-        controlador.ejecutar();
+        ControladorMenu controladorMenu = new ControladorMenu();
+        controladorMenu.ejecutar();
+
+    
+
     }
 }

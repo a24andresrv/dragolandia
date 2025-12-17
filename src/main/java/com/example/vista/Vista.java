@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import com.example.modelo.Bosque;
 import com.example.modelo.Dragon;
-import com.example.modelo.Hechizo;
 import com.example.modelo.Mago;
 import com.example.modelo.Monstruo;
 import com.example.modelo.TipoMonstruo;
@@ -17,9 +16,7 @@ import com.example.modelo.TipoMonstruo;
 public class Vista {
     private Scanner sc = new Scanner(System.in);
 
-    public void mostrarMensje(String mensaje) {
-        System.out.println(mensaje);
-    }
+
 
     public void menu() {
         System.out.println("-----MENU-----");
@@ -191,7 +188,7 @@ public class Vista {
         System.out.println("1. Exhalar fuego (dragón)");
         System.out.println("2. Lanzar hechizo");
     }
-    public Hechizo seleccionarHechizos(List<Hechizo> hechizosDisponibles) {
+    /*public Hechizo seleccionarHechizos(List<Hechizo> hechizosDisponibles) {
         System.out.println("Selección de hechizo:");
         Hechizo hechizoSeleccionado = null;
         Integer opcion = -1;
@@ -209,25 +206,7 @@ public class Vista {
             }
         }
         return hechizoSeleccionado;
-    }
+    }*/
 
-    public Hechizo mostrarHechizosAprender(List<Hechizo> hechizosDisponibles) {
-        System.out.println("Selección de hechizo para aprender:");
-        Hechizo hechizoSeleccionado = null;
-        Integer opcion = -1;
-        while (opcion < 1 || opcion > hechizosDisponibles.size()) {
-            for (int i = 0; i < hechizosDisponibles.size(); i++) {
-                System.out.println((i + 1) + ". " + hechizosDisponibles.get(i).getNombre() + " - Daño: " + hechizosDisponibles.get(i).getDanio());
-            }
-            System.out.print("Seleccione un número: ");
-            opcion = leerEntero();
-            if (opcion > 0 && opcion <= hechizosDisponibles.size()) {
-                hechizoSeleccionado = hechizosDisponibles.get(opcion - 1);
-                System.out.println("Hechizo seleccionado: " + hechizoSeleccionado.getNombre());
-            } else {
-                System.out.println("Ingrese una opción válida.");
-            }
-        }
-        return hechizoSeleccionado;
-    }
+    
 }
