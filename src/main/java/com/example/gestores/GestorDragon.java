@@ -6,7 +6,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.example.modelo.Dragon;
-import com.example.modelo.Mago;
 
 public class GestorDragon {
     public void crearDragon(Dragon dragon) {

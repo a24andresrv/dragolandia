@@ -17,10 +17,11 @@ public class Dragon {
     public Dragon() {
     }
 
-    public Dragon(String nombre, Integer intensidadFuego, Integer resistencia) {
+    public Dragon(String nombre, Integer intensidadFuego, Integer resistencia,Bosque bosque) {
         this.nombre = nombre;
         this.intensidadFuego = intensidadFuego;
         this.resistencia = resistencia;
+        this.bosque = bosque;
     }
 
     public String getNombre() {

@@ -5,6 +5,7 @@ import com.example.modelo.Mago;
 import com.example.modelo.Monstruo;
 import com.example.modelo.Bosque;
 import com.example.modelo.Dragon;
+import com.example.modelo.Hechizo;
 import com.example.gestores.*;
 
 import java.util.ArrayList;
@@ -43,19 +44,19 @@ public class ControladorMenu {
             vista.menu();
             opcion = vista.leerEntero();
             switch (opcion) {
-                //Crear mago
+                // Crear mago
                 case 1:
                     Mago mago = vista.datosMago();
                     gestorMago.crearMago(mago);
                     magosDisponibles.add(mago);
                     break;
-                //Crear monstruo
+                // Crear monstruo
                 case 2:
                     Monstruo monstruo = vista.datosMonstruo();
                     gestorMonstruo.crearMonstruo(monstruo);
                     monstruosDisponibles.add(monstruo);
                     break;
-                //Crear bosque
+                // Crear bosque
                 case 3:
                     if (monstruosDisponibles.isEmpty()) {
                         vista.mostrarNoHayMonstruos();
@@ -67,12 +68,12 @@ public class ControladorMenu {
                     gestorBosque.crearBosque(bosque);
                     bosquesDisponibles.add(bosque);
                     break;
-                //Crear dragón
+                // Crear dragón
                 case 4:
                     dragon = vista.datosDragon(bosquesDisponibles);
                     gestorDragon.crearDragon(dragon);
                     break;
-                //Mostrar jefe del bosque
+                // Mostrar jefe del bosque
                 case 5:
                     if (bosque == null) {
                         vista.mostrarNoHayBosque();
@@ -80,24 +81,22 @@ public class ControladorMenu {
                         bosque.mostrarJefe();
                     }
                     break;
-                //Cambiar jefe del bosque   
+                // Cambiar jefe del bosque
                 case 6:
                     Monstruo nuevoJefe = vista.seleccionarMonstruo(monstruosDisponibles);
                     bosque.cambiarJefe(nuevoJefe);
                     break;
-                //Añadir hechizo al mago
+                // Añadir hechizo al mago
                 case 7:
-                    
-                    /*
-                     * if (magosDisponibles.isEmpty()) {
-                     * vista.mostrarNoHayMagos();
-                     * } else {
-                     * Mago magoSeleccionado = vista.seleccionarMago(magosDisponibles);
-                     * Hechizo hechizoNuevo = vista.datosHechizo();
-                     * magoSeleccionado.addHechizo(hechizoNuevo);
-                     */
+                    if (magosDisponibles.isEmpty()) {
+                        vista.mostrarNoHayMagos();
+                    } else {
+                        Mago magoSeleccionado = vista.seleccionarMago(magosDisponibles);
+                        Hechizo seleccionaHechizo = vista.seleccionarHechizo();
+                        magoSeleccionado.addHechizo(seleccionaHechizo);
+                    }
                     break;
-                //Combate
+                // Combate
                 case 8:
                     ControladorCombate controladorCombate = new ControladorCombate();
                     controladorCombate.iniciarCombate(magosDisponibles, monstruosDisponibles, dragon);

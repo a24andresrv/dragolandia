@@ -3,6 +3,7 @@ package com.example.vista;
 import com.example.modelo.Mago;
 import com.example.modelo.Monstruo;
 import com.example.modelo.TipoMonstruo;
+import com.example.modelo.Hechizo;
 import com.example.modelo.Bosque;
 import com.example.modelo.Dragon;
 
@@ -35,7 +36,9 @@ public class VistaMenu {
     public void mostrarNoHayBosque() {
         System.out.println("No hay un bosque creado.");
     }
-
+        public void mostrarNoHayMagos() {
+        System.out.println("No hay magos disponibles");
+    }
     public void mostrarSaliendoAplicacion() {
         System.out.println("Saliendo de la aplicación...");
     }
@@ -109,6 +112,26 @@ public class VistaMenu {
         return monstruoSeleccionado;
     }
 
+    public Mago seleccionarMago(List<Mago> magosDisponibles) {
+        System.out.println("Selección de mago:");
+        Mago magoSeleccionado = null;
+        Integer opcion = -1;
+        while (opcion < 1 || opcion > magosDisponibles.size()) {
+            for (int i = 0; i < magosDisponibles.size(); i++) {
+                System.out.println((i + 1) + ". " + magosDisponibles.get(i).getNombre());
+            }
+            System.out.print("Seleccione un número: ");
+            opcion = leerEntero();
+            if (opcion > 0 && opcion <= magosDisponibles.size()) {
+                magoSeleccionado = magosDisponibles.get(opcion - 1);
+                System.out.println("Mago seleccionado: " + magoSeleccionado.getNombre());
+            } else {
+                System.out.println("Ingrese una opción válida");
+            }
+        }
+        return magoSeleccionado;
+    }
+
     public Bosque seleccionarBosque(List<Bosque> bosquesDisponibles) {
         System.out.println("Selección de bosque:");
         Bosque bosqueSeleccionado = null;
@@ -137,7 +160,7 @@ public class VistaMenu {
         System.out.print("Ingrese la resistencia del dragón: ");
         Integer resistencia = leerEntero();
         Bosque bosque = seleccionarBosque(bosquesDisponibles);
-        return new Dragon(nombre, intensidadFuego, resistencia);
+        return new Dragon(nombre, intensidadFuego, resistencia,bosque);
     }
 
     /*
@@ -181,5 +204,10 @@ public class VistaMenu {
 
     public String leerLinea() {
         return sc.nextLine();
+    }
+
+    public Hechizo seleccionarHechizo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'seleccionarHechizo'");
     }
 }

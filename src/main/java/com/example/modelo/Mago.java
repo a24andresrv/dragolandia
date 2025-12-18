@@ -65,5 +65,10 @@ public class Mago {
         monstruo.setVida(monstruo.getVida() - this.nivelMagia);
     }
 
+    public void addHechizo(Hechizo hechizoNuevo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addHechizo'");
+    }
+
 
 }
