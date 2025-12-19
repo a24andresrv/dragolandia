@@ -2,6 +2,8 @@ package com.example.modelo;
 
 
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Mago {
     private String nombre;
     private Integer vida;
     private Integer nivelMagia;
+    private List<Hechizo> conjuros;
 
 
     public Mago() {
@@ -65,8 +68,8 @@ public class Mago {
         monstruo.setVida(monstruo.getVida() - this.nivelMagia);
     }
 
-    public void addHechizo(Hechizo hechizoNuevo,Monstruo monstruo) {
-        hechizoNuevo.aplicar(monstruo);
+    public void addHechizo(Hechizo hechizoNuevo) {
+            conjuros.add(hechizoNuevo);
     }
 
 

@@ -27,43 +27,52 @@ public class ControladorCombate {
             if (magos.isEmpty()) {
                 vista.mostrarNoHayMagos();
             }
-            return;
+        } else {
+            Mago mago = vista.seleccionarMago(magos);
+            List<Monstruo> monstruosVivos = new ArrayList<>(monstruos);
+            while (mago.getVida() > 0 && !monstruosVivos.isEmpty()) {
+                vista.opcionesMago();
+                switch (vista.leerEntero()) {
+                    case 1:
+                        if (dragon == null) {
+                            vista.mostrarNoHayDragon();
+                        } else {
+                            Monstruo monstruo = vista.seleccionarMonstruo(monstruosVivos);
+                            dragon.exhalar(monstruo);
+                        }
+                        break;
+                    case 2:
+                        Monstruo monstruo = vista.seleccionarMonstruo(monstruosVivos);
+                        // Hechizo hechizoSeleccionado = vista.seleccionarHechizos(hechizosDisponibles);
+                        // mago.lanzarHechizo(monstruo, hechizoSeleccionado);
+                        vista.magoAtaca(mago.getNombre(), monstruo.getNombre(), mago.getNivelMagia());
+                        break;
+                    default:
+                        break;
+                }
+
+                if (mago.getVida() > 0 && !monstruosVivos.isEmpty()) {
+                    Monstruo monstruo = monstruosVivos.get(0); // Selecciona el primer monstruo vivo
+                    mago.lanzarHechizo(monstruo);
+                    vista.monstruoAtaca(monstruo.getNombre(), mago.getNombre(), monstruo.getFuerza());
+                }
+
+            }
+            comprobarGanador(mago, monstruosVivos);
         }
-        Mago mago = vista.seleccionarMago(magos);
+    }
+
+    // Genera una lista de monstruos aleatorios para el combate
+    public void escogerMonstruos(List<Monstruo> monstruos) {
         ArrayList<Monstruo> monstruosVivos = new ArrayList<>();
         Integer nMonstruos = (int) (Math.random() * monstruos.size()) + 1;
         for (int i = 0; i < nMonstruos; i++) {
             Integer indiceAleatorio = (int) (Math.random() * monstruos.size());
             monstruosVivos.add(monstruos.get(indiceAleatorio));
         }
-        while (mago.getVida() > 0 && !monstruosVivos.isEmpty()) {
-            vista.opcionesMago();
-            switch (vista.leerEntero()) {
-                case 1:
-                    if (dragon == null) {
-                        vista.mostrarNoHayDragon();
-                    } else {
-                        Monstruo monstruo = vista.seleccionarMonstruo(monstruosVivos);
-                        dragon.exhalar(monstruo);
-                    }
-                    break;
-                case 2:
-                    Monstruo monstruo = vista.seleccionarMonstruo(monstruosVivos);
-                    // Hechizo hechizoSeleccionado = vista.seleccionarHechizos(hechizosDisponibles);
-                    // mago.lanzarHechizo(monstruo, hechizoSeleccionado);
-                    vista.magoAtaca(mago.getNombre(), monstruo.getNombre(), mago.getNivelMagia());
-                    break;
-                default:
-                    break;
-            }
+    }
 
-            if (mago.getVida() > 0 && !monstruosVivos.isEmpty()) {
-                Monstruo monstruo = monstruosVivos.get(0); // Selecciona el primer monstruo vivo
-                mago.lanzarHechizo(monstruo);
-                vista.monstruoAtaca(monstruo.getNombre(), mago.getNombre(), monstruo.getFuerza());
-            }
-
-        }
+    public void comprobarGanador(Mago mago, List<Monstruo> monstruosVivos) {
         if (mago.getVida() > 0) {
             vista.mostrarGanadorMago(mago.getNombre());
         } else if (!monstruosVivos.isEmpty()) {

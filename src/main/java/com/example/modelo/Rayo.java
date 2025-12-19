@@ -6,7 +6,7 @@ import jakarta.persistence.*;
  * Clase Rayo - Hechizo que inflige daño directo a un objetivo.
  */
 
-@Entity
+//@Entity
 public class Rayo extends Hechizo {
 
     public Rayo() {

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
  * Clase BolaDeFuego - Hechizo que afecta a múltiples monstruos.
  * Reduce la vida de todos los monstruos en la lista según el efecto.
  */
-@Entity
+//@Entity
 public class BolaFuego extends Hechizo {
 
     public BolaFuego() {
