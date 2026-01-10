@@ -19,9 +19,8 @@ public class BolaNieve extends Hechizo {
         if (objetivo instanceof Monstruo) {
             Monstruo monstruo = (Monstruo) objetivo;
             monstruo.setVida(0);
-        }
-    else {
-            System.out.println("ERROR: Objetivo no válido para Bola de Fuego");
+        } else {
+            System.out.println("ERROR: Objetivo no válido para Bola de Nieve");
         }
     }
 }

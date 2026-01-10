@@ -88,5 +88,23 @@ public class Mago {
         this.conjuros = conjuros;
     }
 
+    /**
+     * Comprueba si el mago conoce un hechizo específico.
+     * Compara por el tipo de clase del hechizo.
+     * @param hechizo El hechizo a comprobar
+     * @return true si el mago conoce el hechizo, false en caso contrario
+     */
+    public boolean conoceHechizo(Hechizo hechizo) {
+        if (conjuros == null || hechizo == null) {
+            return false;
+        }
+        // Compara por el tipo de clase del hechizo
+        for (Hechizo h : conjuros) {
+            if (h.getClass().equals(hechizo.getClass())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

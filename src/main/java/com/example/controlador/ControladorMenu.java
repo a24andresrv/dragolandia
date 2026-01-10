@@ -24,7 +24,7 @@ public class ControladorMenu {
     private GestorMago gestorMago;
     private GestorMonstruo gestorMonstruo;
     private GestorDragon gestorDragon;
-    private GestorHechizo gestorHechizo;
+
     private List<Monstruo> monstruosDisponibles;
     private List<Mago> magosDisponibles;
     private List<Bosque> bosquesDisponibles;
@@ -38,7 +38,6 @@ public class ControladorMenu {
         this.gestorMago = new GestorMago();
         this.gestorMonstruo = new GestorMonstruo();
         this.gestorDragon = new GestorDragon();
-        this.gestorHechizo = new GestorHechizo();
         this.monstruosDisponibles = new ArrayList<>();
         this.magosDisponibles = new ArrayList<>();
         this.bosquesDisponibles = new ArrayList<>();
@@ -153,7 +152,7 @@ public class ControladorMenu {
                         vista.mostrarNoHayDragon();
                     }
                     ControladorCombate controladorCombate = new ControladorCombate();
-                    controladorCombate.iniciarCombate(magosDisponibles, monstruosDisponibles, dragon,hechizosDisponibles);
+                    controladorCombate.iniciarCombate(magosDisponibles, monstruosDisponibles, dragon,hechizosDisponibles,bosque);
                     break;
                 case 0:
                     vista.mostrarSaliendoAplicacion();
