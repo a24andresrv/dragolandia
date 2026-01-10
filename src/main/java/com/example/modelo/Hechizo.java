@@ -7,13 +7,13 @@ import jakarta.persistence.*;
  * del juego.
  * Cada tipo de hechizo implementará su propio efecto.
  */
-/*@Entity
-@Inheritance(strategy = InheritanceType.JOINED)*/
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Hechizo {
 
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
-    protected int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
 
     protected String nombre;
 
@@ -21,5 +21,13 @@ public abstract class Hechizo {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

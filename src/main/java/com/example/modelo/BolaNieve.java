@@ -6,7 +6,8 @@ import jakarta.persistence.*;
  * Clase BolaNieve - Hechizo que congela al oponente.
  * Deja al monstruo congelado, reduciendo su vida a 0.
  */
-//@Entity
+@Entity
+@Table(name = "BolaNieve")
 public class BolaNieve extends Hechizo {
 
     public BolaNieve() {

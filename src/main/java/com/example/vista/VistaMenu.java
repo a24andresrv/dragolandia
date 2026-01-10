@@ -6,7 +6,9 @@ import com.example.modelo.TipoMonstruo;
 import com.example.modelo.Hechizo;
 import com.example.modelo.Bosque;
 import com.example.modelo.Dragon;
-
+import com.example.modelo.BolaFuego;
+import com.example.modelo.Rayo;
+import com.example.modelo.BolaNieve;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +26,7 @@ public class VistaMenu {
         System.out.println("4. Crear Dragón");
         System.out.println("5. Mostrar Jefe del Bosque");
         System.out.println("6. Cambiar Jefe del Bosque");
-        System.out.println("7. Añadir hechizo al mago (no implementado)");
+        System.out.println("7. Añadir hechizo al mago");
         System.out.println("8. Combate");
         System.out.println("0. Salir");
     }
@@ -159,6 +161,7 @@ public class VistaMenu {
         Integer intensidadFuego = leerEntero();
         System.out.print("Ingrese la resistencia del dragón: ");
         Integer resistencia = leerEntero();
+ 
         Bosque bosque = seleccionarBosque(bosquesDisponibles);
         return new Dragon(nombre, intensidadFuego, resistencia,bosque);
     }
@@ -206,8 +209,40 @@ public class VistaMenu {
         return sc.nextLine();
     }
 
-    public Hechizo seleccionarHechizo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'seleccionarHechizo'");
+    /**
+     * Permite seleccionar un hechizo de una lista de hechizos disponibles
+     * @param hechizosDisponibles Lista de hechizos disponibles
+     * @return El hechizo seleccionado
+     */
+    public Hechizo seleccionarHechizoDisponible(List<Hechizo> hechizosDisponibles) {
+        System.out.println("Selección de hechizo:");
+        Hechizo hechizoSeleccionado = null;
+        Integer opcion = -1;
+        while (opcion < 1 || opcion > hechizosDisponibles.size()) {
+            for (int i = 0; i < hechizosDisponibles.size(); i++) {
+                System.out.println((i + 1) + ". " + hechizosDisponibles.get(i).getNombre());
+            }
+            System.out.print("Seleccione un número: ");
+            opcion = leerEntero();
+            if (opcion > 0 && opcion <= hechizosDisponibles.size()) {
+                hechizoSeleccionado = hechizosDisponibles.get(opcion - 1);
+                System.out.println("Hechizo seleccionado: " + hechizoSeleccionado.getNombre());
+            } else {
+                System.out.println("Ingrese una opción válida");
+            }
+        }
+        return hechizoSeleccionado;
+    }
+
+    public void mostrarNoHayMagosSuficientes() {
+        System.out.println("No hay magos suficientes para iniciar el combate.");
+    }
+
+    public void mostrarNoHayMonstruosSuficientes() {
+        System.out.println("No hay monstruos suficientes para iniciar el combate.");
+    }
+
+    public void mostrarNoHayDragon() {
+        System.out.println("No hay dragón para iniciar el combate.");
     }
 }

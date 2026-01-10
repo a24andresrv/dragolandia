@@ -4,6 +4,7 @@ import com.example.vista.VistaCombate;
 import com.example.modelo.Mago;
 import com.example.modelo.Monstruo;
 import com.example.modelo.Dragon;
+import com.example.modelo.Hechizo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class ControladorCombate {
         this.vista = new VistaCombate();
     }
 
-    public void iniciarCombate(List<Mago> magos, List<Monstruo> monstruos, Dragon dragon) {
+    public void iniciarCombate(List<Mago> magos, List<Monstruo> monstruos, Dragon dragon, List<Hechizo> hechizosDisponibles) {
         if (monstruos.isEmpty() || magos.isEmpty()) {
             if (monstruos.isEmpty()) {
                 vista.mostrarNoHayMonstruos();

@@ -1,8 +1,7 @@
 package com.example;
 
 import com.example.controlador.ControladorMenu;
-import com.example.controlador.ControladorCombate;
-
+import com.example.util.HibernateUtil;
 /**
  * Clase Principal - Punto de entrada de la aplicación Dragolandia
  * Inicializa el controlador que gestiona toda la lógica del juego
@@ -19,13 +18,13 @@ public class Principal {
      * @param args Argumentos de línea de comandos (no utilizados)
      */
     public static void main(String[] args) {
+        HibernateUtil.getEntityManager();
         // Crear instancia del controlador
-
         
         ControladorMenu controladorMenu = new ControladorMenu();
         controladorMenu.ejecutar();
 
-    
+        HibernateUtil.close();
 
     }
 }

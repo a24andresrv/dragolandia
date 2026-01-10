@@ -1,41 +1,29 @@
 package com.example.util;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 /**
- * Clase HibernateUtil - Implementa un SessionFactory como Singleton
- * para gestionar sesiones de Hibernate en toda la aplicación.
+ * Clase que mantén unha única referencia ó xestor de entidades da aplicación.
+ * Ademáis, proporciona os métodos de obter esta referencia ou pechar o xestor si está aberto.
  */
 public class HibernateUtil {
 
-    private static SessionFactory sessionFactory;
+    //Mantemos a variable global estática e final do xestor de entidades único 
+    private static final EntityManagerFactory xestorEntidades =
+        Persistence.createEntityManagerFactory("dragolandiaServizo");
 
-    /**
-     * Método para obtener la instancia única de SessionFactory.
-     *
-     * @return La instancia de SessionFactory.
-     */
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            try {
-                // Crear la configuración y construir el SessionFactory
-                sessionFactory = new Configuration().configure().buildSessionFactory();
-            } catch (Throwable ex) {
-                // Manejo de errores en la inicialización
-                System.err.println("Error al crear el SessionFactory: " + ex);
-                throw new ExceptionInInitializerError(ex);
-            }
-        }
-        return sessionFactory;
+    public static EntityManager getEntityManager() {
+        return xestorEntidades.createEntityManager();
     }
-
-    /**
-     * Método para cerrar el SessionFactory al finalizar la aplicación.
-     */
-    public static void shutdown() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
+   
+    public static void close() {
+        if (xestorEntidades.isOpen()) {
+            xestorEntidades.close();
         }
     }
+
 }
+
+
