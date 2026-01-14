@@ -141,3 +141,7 @@ Después de cada acción del jugador, los monstruos supervivientes contraatacan
 Cada monstruo vivo inflige daño al mago según su atributo de fuerza
 
 
+## Manual de usuario
+
+Accede al manual de usuario en el siguiente enlace: [Manual de Usuario Dragolandia](./Manual_de_Usuario_Dragolandia)
+

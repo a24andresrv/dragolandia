@@ -6,8 +6,8 @@ import com.example.util.HibernateUtil;
  * Clase Principal - Punto de entrada de la aplicación Dragolandia
  * Inicializa el controlador que gestiona toda la lógica del juego
  * 
- * @author Cristina Puga Fernández
  * @version 1.0
+ * @author Andrés Rodríguez Vázquez
  */
 public class Principal {
     
