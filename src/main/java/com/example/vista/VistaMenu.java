@@ -6,9 +6,6 @@ import com.example.modelo.TipoMonstruo;
 import com.example.modelo.Hechizo;
 import com.example.modelo.Bosque;
 import com.example.modelo.Dragon;
-import com.example.modelo.BolaFuego;
-import com.example.modelo.Rayo;
-import com.example.modelo.BolaNieve;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +14,6 @@ import java.util.Scanner;
  * principal
  */
 public class VistaMenu {
-    private Scanner sc = new Scanner(System.in);
 
     public void menu() {
         System.out.println("1. Crear Mago");
@@ -51,20 +47,20 @@ public class VistaMenu {
 
     public Mago datosMago() {
         System.out.print("Ingrese el nombre del mago: ");
-        String nombre = leerLinea();
+        String nombre = Vista.leerLinea();
         System.out.print("Ingrese la vida del mago: ");
-        Integer vida = leerEntero();
+        Integer vida = Vista.leerEntero();
         System.out.print("Ingrese el nivel de magia del mago: ");
-        Integer nivelMagia = leerEntero();
+        Integer nivelMagia = Vista.leerEntero();
 
         return new Mago(nombre, vida, nivelMagia);
     }
 
     public Monstruo datosMonstruo() {
         System.out.print("Ingrese el nombre del monstruo: ");
-        String nombre = leerLinea();
+        String nombre = Vista.leerLinea();
         System.out.print("Ingrese la vida del monstruo: ");
-        Integer vida = leerEntero();
+        Integer vida = Vista.leerEntero();
         System.out.println("Seleccione el tipo de monstruo:");
         TipoMonstruo[] tipos = TipoMonstruo.values();
         for (int i = 0; i < tipos.length; i++) {
@@ -73,22 +69,22 @@ public class VistaMenu {
         int opcionTipo = -1;
         while (opcionTipo < 1 || opcionTipo > tipos.length) {
             System.out.print("Ingrese el número correspondiente al tipo: ");
-            opcionTipo = leerEntero();
+            opcionTipo = Vista.leerEntero();
             if (opcionTipo < 1 || opcionTipo > tipos.length) {
                 System.out.println("Opción inválida. Intente de nuevo.");
             }
         }
         TipoMonstruo tipo = tipos[opcionTipo - 1];
         System.out.print("Ingrese la fuerza del monstruo: ");
-        Integer fuerza = leerEntero();
+        Integer fuerza = Vista.leerEntero();
         return new Monstruo(nombre, vida, tipo, fuerza);
     }
 
     public Bosque datosBosque(List<Monstruo> monstruosDisponibles) {
         System.out.print("Ingrese el nombre del bosque: ");
-        String nombre = leerLinea();
+        String nombre = Vista.leerLinea();
         System.out.print("Ingrese el nivel de peligro: ");
-        Integer nivelPeligro = leerEntero();
+        Integer nivelPeligro = Vista.leerEntero();
         System.out.println("Seleccione el monstruo jefe del bosque:");
         Monstruo jefeSeleccionado = seleccionarMonstruo(monstruosDisponibles);
         return new Bosque(nombre, nivelPeligro, jefeSeleccionado);
@@ -103,7 +99,7 @@ public class VistaMenu {
                 System.out.println((i + 1) + ". " + monstruosDisponibles.get(i).getNombre());
             }
             System.out.print("Seleccione un número: ");
-            opcion = leerEntero();
+            opcion = Vista.leerEntero();
             if (opcion > 0 && opcion <= monstruosDisponibles.size()) {
                 monstruoSeleccionado = monstruosDisponibles.get(opcion - 1);
                 System.out.println("Monstruo seleccionado: " + monstruoSeleccionado.getNombre());
@@ -123,7 +119,7 @@ public class VistaMenu {
                 System.out.println((i + 1) + ". " + magosDisponibles.get(i).getNombre());
             }
             System.out.print("Seleccione un número: ");
-            opcion = leerEntero();
+            opcion = Vista.leerEntero();
             if (opcion > 0 && opcion <= magosDisponibles.size()) {
                 magoSeleccionado = magosDisponibles.get(opcion - 1);
                 System.out.println("Mago seleccionado: " + magoSeleccionado.getNombre());
@@ -143,7 +139,7 @@ public class VistaMenu {
                 System.out.println((i + 1) + ". " + bosquesDisponibles.get(i).getNombre());
             }
             System.out.print("Seleccione un número: ");
-            opcion = leerEntero();
+            opcion = Vista.leerEntero();
             if (opcion > 0 && opcion <= bosquesDisponibles.size()) {
                 bosqueSeleccionado = bosquesDisponibles.get(opcion - 1);
                 System.out.println("Bosque seleccionado: " + bosqueSeleccionado.getNombre());
@@ -156,58 +152,17 @@ public class VistaMenu {
 
     public Dragon datosDragon(List<Bosque> bosquesDisponibles) {
         System.out.print("Ingrese el nombre del dragón: ");
-        String nombre = leerLinea();
+        String nombre = Vista.leerLinea();
         System.out.print("Ingrese la intensidad de fuego del dragón: ");
-        Integer intensidadFuego = leerEntero();
+        Integer intensidadFuego = Vista.leerEntero();
         System.out.print("Ingrese la resistencia del dragón: ");
-        Integer resistencia = leerEntero();
+        Integer resistencia = Vista.leerEntero();
  
         Bosque bosque = seleccionarBosque(bosquesDisponibles);
         return new Dragon(nombre, intensidadFuego, resistencia,bosque);
     }
 
-    /*
-     * public Hechizo mostrarHechizosAprender(List<Hechizo> hechizosDisponibles) {
-     * System.out.println("Selección de hechizo para aprender:");
-     * Hechizo hechizoSeleccionado = null;
-     * Integer opcion = -1;
-     * while (opcion < 1 || opcion > hechizosDisponibles.size()) {
-     * for (int i = 0; i < hechizosDisponibles.size(); i++) {
-     * System.out.println((i + 1) + ". " + hechizosDisponibles.get(i).getNombre() +
-     * " - Daño: " + hechizosDisponibles.get(i).getDanio());
-     * }
-     * System.out.print("Seleccione un número: ");
-     * opcion = leerEntero();
-     * if (opcion > 0 && opcion <= hechizosDisponibles.size()) {
-     * hechizoSeleccionado = hechizosDisponibles.get(opcion - 1);
-     * System.out.println("Hechizo seleccionado: " +
-     * hechizoSeleccionado.getNombre());
-     * } else {
-     * System.out.println("Ingrese una opción válida.");
-     * }
-     * }
-     * return hechizoSeleccionado;
-     * }
-     */
 
-    public int leerEntero() {
-        Integer entero = null;
-        while (entero == null) {
-            try {
-                entero = sc.nextInt();
-                sc.nextLine();
-                return entero;
-            } catch (Exception e) {
-                System.out.println("Introduce un entero: " + e.getMessage());
-                sc.nextLine();
-            }
-        }
-        return entero;
-    }
-
-    public String leerLinea() {
-        return sc.nextLine();
-    }
 
     /**
      * Permite seleccionar un hechizo de una lista de hechizos disponibles
@@ -223,7 +178,7 @@ public class VistaMenu {
                 System.out.println((i + 1) + ". " + hechizosDisponibles.get(i).getNombre());
             }
             System.out.print("Seleccione un número: ");
-            opcion = leerEntero();
+            opcion = Vista.leerEntero();
             if (opcion > 0 && opcion <= hechizosDisponibles.size()) {
                 hechizoSeleccionado = hechizosDisponibles.get(opcion - 1);
                 System.out.println("Hechizo seleccionado: " + hechizoSeleccionado.getNombre());

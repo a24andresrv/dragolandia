@@ -5,13 +5,12 @@ import com.example.modelo.Monstruo;
 import com.example.modelo.Bosque;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Clase VistaCombate - Gestiona la interacción con el usuario para los combates
  */
 public class VistaCombate {
-    private Scanner sc = new Scanner(System.in);
+
 
     public void mostrarNoHayMonstruos() {
         System.out.println("No hay monstruos disponibles para el combate.");
@@ -166,7 +165,7 @@ public class VistaCombate {
                 System.out.println((i + 1) + ". " + magosDisponibles.get(i).getNombre());
             }
             System.out.print("Seleccione un número: ");
-            opcion = leerEntero();
+            opcion = Vista.leerEntero();
             if (opcion > 0 && opcion <= magosDisponibles.size()) {
                 magoSeleccionado = magosDisponibles.get(opcion - 1);
                 System.out.println("Mago seleccionado: " + magoSeleccionado.getNombre());
@@ -186,7 +185,7 @@ public class VistaCombate {
                 System.out.println((i + 1) + ". " + monstruosDisponibles.get(i).getNombre());
             }
             System.out.print("Seleccione un número: ");
-            opcion = leerEntero();
+            opcion = Vista.leerEntero();
             if (opcion > 0 && opcion <= monstruosDisponibles.size()) {
                 monstruoSeleccionado = monstruosDisponibles.get(opcion - 1);
                 System.out.println("Monstruo seleccionado: " + monstruoSeleccionado.getNombre());
@@ -197,22 +196,4 @@ public class VistaCombate {
         return monstruoSeleccionado;
     }
 
-    public int leerEntero() {
-        Integer entero = null;
-        while (entero == null) {
-            try {
-                entero = sc.nextInt();
-                sc.nextLine();
-                return entero;
-            } catch (Exception e) {
-                System.out.println("Introduce un entero: " + e.getMessage());
-                sc.nextLine();
-            }
-        }
-        return entero;
-    }
-
-    public String leerLinea() {
-        return sc.nextLine();
-    }
 }

@@ -8,7 +8,6 @@ import jakarta.persistence.*;
  * Reduce la vida de todos los monstruos en la lista según el efecto.
  */
 @Entity
-@Table(name = "BolaFuego")
 public class BolaFuego extends Hechizo {
 
     public BolaFuego() {

@@ -145,3 +145,5 @@ Cada monstruo vivo inflige daño al mago según su atributo de fuerza
 
 Accede al manual de usuario en el siguiente enlace: [Manual de Usuario Dragolandia](./Manual_de_Usuario_Dragolandia)
 
+## Capturas de pantalla tras ejecución de una ronda
+[Capturas.pdf](./RodriguezVazquez_Andres_Capturas_BD_dragolandia.pdf)

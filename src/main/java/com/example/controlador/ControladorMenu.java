@@ -1,5 +1,6 @@
 package com.example.controlador;
 
+import com.example.vista.Vista;
 import com.example.vista.VistaMenu;
 import com.example.modelo.Mago;
 import com.example.modelo.Monstruo;
@@ -63,7 +64,7 @@ public class ControladorMenu {
         Integer opcion;
         do {
             vista.menu();
-            opcion = vista.leerEntero();
+            opcion = Vista.leerEntero();
             switch (opcion) {
                 // Crear mago
                 case 1:

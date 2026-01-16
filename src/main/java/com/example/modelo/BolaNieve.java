@@ -7,7 +7,6 @@ import jakarta.persistence.*;
  * Deja al monstruo congelado, reduciendo su vida a 0.
  */
 @Entity
-@Table(name = "BolaNieve")
 public class BolaNieve extends Hechizo {
 
     public BolaNieve() {
